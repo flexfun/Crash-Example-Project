@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="FB_DeviceMonitor" Id="{bc1bc499-3913-423a-945b-98ef54d797c7}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_DeviceMonitor
 
 VAR_IN_OUT
-	devices : ARRAY[*] OF FB_MonitoredDevice;
+//	devices : ARRAY[*] OF FB_MonitoredDevice;
 //	Devices : ARRAY[*] OF MonitoredDeviceStruct;
-//	devices : FB_BA_DynamicArray;
+END_VAR
+
+VAR
+	devices : FB_BA_DynamicArray;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[//devices.uiEntrySize := 50;]]></ST>
     </Implementation>
     <Method Name="AddMonitoredDevice" Id="{3d226fca-917d-4593-a4df-24a17244406a}">
       <Declaration><![CDATA[METHOD AddMonitoredDevice : BOOL // Returns the monitored device instance that has just been added
@@ -22,24 +25,28 @@ VAR_INPUT
 END_VAR
 
 VAR
-	uNewMaxIndex : DINT;
+//	uNewMaxIndex : DINT;
 //	fbMonitoredDevice : FB_MonitoredDevice;
 //	stMonitoredDevice : ST_MonitoredDevice;
+	resultIndex: DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Find the current max index in the existing array
-uNewMaxIndex := UPPER_BOUND(devices,1);
+//uNewMaxIndex := UPPER_BOUND(devices,1);
 
 // Create a new monitored device instance
 //fbMonitoredDevice.device := device.pValue;
 //fbMonitoredDevice.deviceId := devices.diCount;
-device.deviceId := uNewMaxIndex;
+//device.deviceId := uNewMaxIndex;
+//device.deviceId := devices.diCount;
+device.deviceId := devices.LastIndex;
+
 //fbMonitoredDevice.name := name;
 //fbMonitoredDevice.location := location;
 //fbMonitoredDevice.description := description;
 
-//devices.AddEntry(
+devices.AddEntryPtr(pEntry := ADR(device));
 
 // Populate the response struct with the instance and it's ID/index location
 //stMonitoredDevice.device := fbMonitoredDevice;
@@ -48,7 +55,7 @@ device.deviceId := uNewMaxIndex;
 // Add the new device instance to the array of monitored devices
 //Devices[uNewMaxIndex] := stMonitoredDevice;
 //Devices[uNewMaxIndex] := fbMonitoredDevice;
-devices[uNewMaxIndex] := device;
+//devices[uNewMaxIndex] := device;
 
 // Return the response struct
 //AddMonitoredDevice := stMonitoredDevice;
@@ -68,6 +75,9 @@ AddMonitoredDevice := TRUE;
       <LineId Id="157" Count="0" />
       <LineId Id="189" Count="0" />
       <LineId Id="231" Count="0" />
+      <LineId Id="248" Count="0" />
+      <LineId Id="250" Count="0" />
+      <LineId Id="249" Count="0" />
       <LineId Id="159" Count="0" />
       <LineId Id="158" Count="0" />
       <LineId Id="195" Count="0" />
