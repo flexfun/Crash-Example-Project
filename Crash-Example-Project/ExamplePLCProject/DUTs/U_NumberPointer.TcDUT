@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_NumberPointer" Id="{ad101d91-22fc-41a3-a667-3be76f05300c}">
+    <Declaration><![CDATA[// A POINTER for every data type of ANY_NUM
+// PS. A pointer has the exact same size for any type
+TYPE U_NumberPointer :
+UNION
+    // Floats
+    _REAL: POINTER TO REAL;
+    _LREAL: POINTER TO LREAL;
+    
+    // Unsigned Ints
+    _USINT : POINTER TO USINT;
+    _UINT  : POINTER TO UINT;
+    _UDINT : POINTER TO UDINT;
+    _ULINT : POINTER TO ULINT;
+    
+    // Signed Ints
+    _SINT : POINTER TO SINT;
+    _INT  : POINTER TO INT;
+    _DINT : POINTER TO DINT;
+    _LINT : POINTER TO LINT;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_HybridStarter" Id="{40a43593-dd83-4697-9b52-2a55021f0aae}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HybridStarter EXTENDS FB_BaseDevice
+VAR_INPUT
+	// The control output to the starter
+    ControlOutput    AT %Q* : UINT;
+	// The 5in1 state data word from the starter
+    StatusInput      AT %I* : UINT;
+	// The Max. current ampere word from the starter, in 10s of mA
+    CurrentMaxInput  AT %I* : UINT;
+	// The Thermal load input word from the starter
+    ThermalLoadInput AT %I* : UINT;
+
+    // Local copy of main control word as UINT (same as ControlOutput)
+    uControl : UINT;
+    // Local copy of main control word, individual bits that are translated to send to output
+    stControl : ST_HybridStarterControlOutputBits;
+
+    // Local copy of main status word as UINT (same as StatusInput)
+    uStatus : UINT;
+    // Local copy of main status word, translated to be readable as individual bits
+    stStatus : ST_HybridStarterControlInputBits;
+
+    // Max current word, multiplied by 10x, from tens of mA (same as CurrentMaxInput) to hundreds of mA, to be human readable
+    uCurrentMilliamps : UINT;
+
+    // Motor thermal load percentage (same as ThermalLoadInput)
+    uThermalLoadPercent : UINT;
+END_VAR
+
+VAR
+    uControlOutput : U_HybridStarterControlOutput;
+    uControlInput1 : U_HybridStarterControlInput;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ReadControlInputs" Id="{032f4767-53a8-4f35-bf43-52c5c6b3764e}">
+      <Declaration><![CDATA[METHOD ReadControlInputs : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uStatus             := StatusInput;
+uCurrentMilliamps   := CurrentMaxInput * 10; // Turn the 10s of mA value into 100s of mA
+uThermalLoadPercent := ThermalLoadInput;
+
+// Run the main input UINT through the union and store the bits in the local struct VAR
+uControlInput1.uUint := uStatus;
+stStatus             := uControlInput1.stBits;
+
+ReadControlInputs := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunForward" Id="{6b6c57d0-536f-4587-856c-f3044e21e237}">
+      <Declaration><![CDATA[METHOD RunForward : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stControl.ForwardRunning := TRUE;
+stControl.ReverseRunning := FALSE;
+RunForward := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunReverse" Id="{8e0f4a7c-2228-4fd1-b9f4-6c173716805d}">
+      <Declaration><![CDATA[METHOD RunReverse : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stControl.ForwardRunning := FALSE;
+stControl.ReverseRunning := TRUE;
+RunReverse := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetNominalCurrent" Id="{581c68a2-e07f-4d6e-bd1e-4df032e197e4}">
+      <Declaration><![CDATA[METHOD SetNominalCurrent : BOOL
+VAR_INPUT
+	bit0 : BOOL;
+	bit1 : BOOL;
+	bit2 : BOOL;
+	bit3 : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stControl.NominalMotorCurrent0 := bit0;
+stControl.NominalMotorCurrent1 := bit1;
+stControl.NominalMotorCurrent2 := bit2;
+stControl.NominalMotorCurrent3 := bit3;
+stControl.IdentificationValid := TRUE;
+SetNominalCurrent := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Stop" Id="{4000f6dd-aedd-4472-ba4f-8472212352aa}">
+      <Declaration><![CDATA[METHOD Stop : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stControl.ForwardRunning := FALSE;
+stControl.ReverseRunning := FALSE;
+
+uControlOutput.stBits := stControl;
+uControl := uControlOutput.uUint;
+ControlOutput := uControl;
+
+Stop := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WriteControlOutput" Id="{bcdc0e86-075c-4243-9a30-bf472af78ee3}">
+      <Declaration><![CDATA[METHOD WriteControlOutput : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[uControlOutput.stBits := stControl;
+uControl := uControlOutput.uUint;
+ControlOutput := uControl;
+WriteControlOutput := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_HybridStarter">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.ReadControlInputs">
+      <LineId Id="69" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="72" Count="5" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.RunForward">
+      <LineId Id="8" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.RunReverse">
+      <LineId Id="6" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.SetNominalCurrent">
+      <LineId Id="22" Count="0" />
+      <LineId Id="24" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.Stop">
+      <LineId Id="17" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_HybridStarter.WriteControlOutput">
+      <LineId Id="11" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="5" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

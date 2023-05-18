@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_ProfinetDeviceDiagInput" Id="{68644c1f-f362-4e13-bd82-1b67d26c626f}">
+    <Declaration><![CDATA[TYPE
+    U_ProfinetDeviceDiagInput :
+    UNION
+        uUint  : UINT;
+        aBytes : ARRAY[0..1] OF BYTE;
+    END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

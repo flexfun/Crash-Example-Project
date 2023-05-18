@@ -1,4 +1,63 @@
 <?xml version="1.0"?>
-<TcSmProject>
-	<Project/>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.35">
+	<Project ProjectGUID="{7E9077A4-4EAC-4A9A-B409-B8DE77D2D191}" TargetNetId="192.168.40.1.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
+		<System>
+			<Settings MaxCpus="2">
+				<Cpu CpuId="1"/>
+			</Settings>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{7665DF6A-A1E1-4F9B-ABAB-634F7ABC43E9}" Name="ExamplePLCProject" PrjFilePath="ExamplePLCProject\ExamplePLCProject.plcproj" TmcFilePath="ExamplePLCProject\ExamplePLCProject.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="ExamplePLCProject\ExamplePLCProject.tmc" TmcHash="{FDB9384D-60B0-9A6C-31CF-B5A9F8BBF631}">
+					<Name>ExamplePLCProject Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>G_Hybrid.HS_N_AS1.StatusInput</Name>
+							<Comment><![CDATA[ The 5in1 state data word from the starter]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>G_Hybrid.HS_N_AS1.CurrentMaxInput</Name>
+							<Comment><![CDATA[ The Max. current ampere word from the starter, in 10s of mA]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>G_Hybrid.HS_N_AS1.ThermalLoadInput</Name>
+							<Comment><![CDATA[ The Thermal load input word from the starter]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>G_Hybrid.HS_N_AS1.ControlOutput</Name>
+							<Comment><![CDATA[ The control output to the starter]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id NeedCalleeCall="true">0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+	</Project>
 </TcSmProject>

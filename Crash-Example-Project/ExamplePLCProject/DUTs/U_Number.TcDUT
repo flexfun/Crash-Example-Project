@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="U_Number" Id="{973db244-cf4f-4cec-99c6-4e18205d4f95}">
+    <Declaration><![CDATA[// Every data type of ANY_NUM
+TYPE U_Number :
+UNION
+    // Floats
+    _REAL  : REAL;
+    _LREAL : LREAL;
+    
+    // Unsigned Ints
+    _USINT : USINT;
+    _UINT  : UINT;
+    _UDINT : UDINT;
+    _ULINT : ULINT;
+    
+    // Signed Ints
+    _SINT : SINT;
+    _INT  : INT;
+    _DINT : DINT;
+    _LINT : LINT;
+END_UNION
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

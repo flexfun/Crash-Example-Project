@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="ITF_OutputDevice" Id="{cc4b4379-1174-4f89-9109-bb7f8802e218}">
+    <Declaration><![CDATA[INTERFACE ITF_OutputDevice
+]]></Declaration>
+    <Method Name="WriteControlOutputs" Id="{de5ed4ab-40a0-408c-8931-6b35227c5f3b}">
+      <Declaration><![CDATA[METHOD WriteControlOutputs : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

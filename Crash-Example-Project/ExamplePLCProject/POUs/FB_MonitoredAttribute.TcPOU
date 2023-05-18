@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_MonitoredAttribute" Id="{7cad55fc-2e5d-4d4a-a2d0-358e330c5251}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MonitoredAttribute
+
+VAR_INPUT
+	// Human-readable name
+	name : WSTRING(255);
+	
+	// Parent device ID
+	deviceId : DINT;
+
+	// A loosely-typed reference to the input attribute value that needs to be monitored
+	inputValue : ANY_NUM;
+	
+	// Monitor the minimum value
+	monitorMinValue : BOOL;
+
+	// Min value warning threshold
+	minWarningValue : U_Number;
+	
+	// Min value error threshold
+	minErrorValue : U_Number;
+	
+	// Monitor the maximum value
+	monitorMaxValue : BOOL;
+
+	// Max value warning threshold
+	maxWarningValue : U_Number;
+	
+	// Max value error threshold
+	maxErrorValue : U_Number;
+	
+	// Initial grace period - default 2 seconds
+	initialGracePeriod : TIME := T#2S;
+	
+	// Use the override value below (provided by the Operator)
+	useOverrideValue : BOOL;
+
+	// Manually override the value for simulation etc
+	overrideValue : ANY_NUM;
+	
+	// Skip any warnings if set to TRUE
+	skipWarnings : BOOL;
+
+	// Skip any errors if set to TRUE
+	skipErrors : BOOL;
+	
+END_VAR
+
+VAR_OUTPUT
+	// A pointer to the current value of the monitored attribute - kept updated by the Refresh() method
+	currentValuePointer : U_Number;
+END_VAR
+
+VAR
+	// A const to determine the type
+	valueType : STRING(8);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Refresh" Id="{71b97db2-0bbf-4343-96ca-0346e850655f}">
+      <Declaration><![CDATA[METHOD Refresh : BOOL
+
+VAR
+	uNumPointer : U_NumberPointer;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE inputValue.TypeClass OF
+        __SYSTEM.TYPE_CLASS.TYPE_REAL:
+                uNumPointer._REAL := inputValue.pValue;
+                currentValuePointer._REAL := uNumPointer._REAL^;
+                valueType := 'REAL';
+        __SYSTEM.TYPE_CLASS.TYPE_LREAL:
+                uNumPointer._LREAL := inputValue.pValue;
+                currentValuePointer._LREAL := uNumPointer._LREAL^;
+                valueType := 'LREAL';
+        __SYSTEM.TYPE_CLASS.TYPE_USINT:
+                uNumPointer._USINT := inputValue.pValue;
+                currentValuePointer._USINT := uNumPointer._USINT^;
+                valueType := 'USINT';
+        __SYSTEM.TYPE_CLASS.TYPE_UINT:
+                uNumPointer._UINT := inputValue.pValue;
+                currentValuePointer._UINT := uNumPointer._UINT^;
+                valueType := 'UINT';
+        __SYSTEM.TYPE_CLASS.TYPE_UDINT:
+                uNumPointer._UDINT := inputValue.pValue;
+                currentValuePointer._UDINT := uNumPointer._UDINT^;
+                valueType := 'UDINT';
+        __SYSTEM.TYPE_CLASS.TYPE_ULINT:
+                uNumPointer._ULINT := inputValue.pValue;
+                currentValuePointer._ULINT := uNumPointer._ULINT^;
+                valueType := 'ULINT';
+        __SYSTEM.TYPE_CLASS.TYPE_SINT:
+                uNumPointer._SINT := inputValue.pValue;
+                currentValuePointer._SINT := uNumPointer._SINT^;
+                valueType := 'SINT';
+        __SYSTEM.TYPE_CLASS.TYPE_INT:
+                uNumPointer._INT := inputValue.pValue;
+                currentValuePointer._INT := uNumPointer._INT^;
+                valueType := 'INT';
+        __SYSTEM.TYPE_CLASS.TYPE_DINT:
+                uNumPointer._DINT := inputValue.pValue;
+                currentValuePointer._DINT := uNumPointer._DINT^;
+                valueType := 'DINT';
+        __SYSTEM.TYPE_CLASS.TYPE_LINT:
+                uNumPointer._LINT := inputValue.pValue;
+                currentValuePointer._LINT := uNumPointer._LINT^;
+                valueType := 'LINT';
+
+ELSE
+        currentValuePointer._INT := 0;
+END_CASE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_MonitoredAttribute">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_MonitoredAttribute.Refresh">
+      <LineId Id="217" Count="44" />
+      <LineId Id="216" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

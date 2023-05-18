@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_HybridStarterControlInputBits" Id="{aeeae349-0d63-4ac4-8e3f-e799e9693374}">
+    <Declaration><![CDATA[TYPE
+    ST_HybridStarterControlInputBits :
+    STRUCT
+        Controllable              : BIT;
+        ForwardRunning            : BIT;
+        ReverseRunning            : BIT;
+        EnableSignal              : BIT;
+        Reserved4                 : BIT;
+        InternalDeviceError1      : BIT;
+        NominalCurrentAckExpected : BIT;
+        InternalDeviceError2      : BIT;
+        Reserved8                 : BIT;
+        OverloadPreWarning        : BIT;
+        Overload                  : BIT;
+        Blocking                  : BIT;
+        PhaseImbalanceGte33Lt67   : BIT;
+        PhaseImbalanceGte67       : BIT;
+        PhaseFailure              : BIT;
+        MainsPowerFailure         : BIT;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

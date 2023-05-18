@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_DeviceMonitor" Id="{bc1bc499-3913-423a-945b-98ef54d797c7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_DeviceMonitor
+
+VAR_IN_OUT
+	devices : ARRAY[*] OF FB_MonitoredDevice;
+//	Devices : ARRAY[*] OF MonitoredDeviceStruct;
+//	devices : FB_BA_DynamicArray;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddMonitoredDevice" Id="{3d226fca-917d-4593-a4df-24a17244406a}">
+      <Declaration><![CDATA[METHOD AddMonitoredDevice : BOOL // Returns the monitored device instance that has just been added
+VAR_INPUT
+	device : FB_MonitoredDevice;
+//	name : WSTRING(255);
+//	location : WSTRING(255);
+//	description : WSTRING(255);
+END_VAR
+
+VAR
+	uNewMaxIndex : DINT;
+//	fbMonitoredDevice : FB_MonitoredDevice;
+//	stMonitoredDevice : ST_MonitoredDevice;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Find the current max index in the existing array
+uNewMaxIndex := UPPER_BOUND(devices,1);
+
+// Create a new monitored device instance
+//fbMonitoredDevice.device := device.pValue;
+//fbMonitoredDevice.deviceId := devices.diCount;
+device.deviceId := uNewMaxIndex;
+//fbMonitoredDevice.name := name;
+//fbMonitoredDevice.location := location;
+//fbMonitoredDevice.description := description;
+
+//devices.AddEntry(
+
+// Populate the response struct with the instance and it's ID/index location
+//stMonitoredDevice.device := fbMonitoredDevice;
+//stMonitoredDevice.deviceId := uNewMaxIndex;
+
+// Add the new device instance to the array of monitored devices
+//Devices[uNewMaxIndex] := stMonitoredDevice;
+//Devices[uNewMaxIndex] := fbMonitoredDevice;
+devices[uNewMaxIndex] := device;
+
+// Return the response struct
+//AddMonitoredDevice := stMonitoredDevice;
+//AddMonitoredDevice := fbMonitoredDevice;
+AddMonitoredDevice := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_DeviceMonitor">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_DeviceMonitor.AddMonitoredDevice">
+      <LineId Id="172" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="161" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="159" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="195" Count="0" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="210" Count="4" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="153" Count="0" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="232" Count="0" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="166" Count="0" />
+      <LineId Id="162" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="234" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

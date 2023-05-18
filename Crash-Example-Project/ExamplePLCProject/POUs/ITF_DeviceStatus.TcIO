@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="ITF_DeviceStatus" Id="{6da6c48b-bf2a-4da2-b6f4-ca51580f04b7}">
+    <Declaration><![CDATA[INTERFACE ITF_DeviceStatus
+]]></Declaration>
+    <Property Name="Faults" Id="{9e21ca3e-a1a5-45d4-9aa9-43b8ad738a3a}">
+      <Declaration><![CDATA[PROPERTY Faults : STRING]]></Declaration>
+      <Get Name="Get" Id="{3d92b4a5-df9d-45d2-9167-e91d5a9523fa}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="StatusOK" Id="{c6774711-ac1e-4ada-bd1a-7ddfa18eab87}">
+      <Declaration><![CDATA[PROPERTY StatusOK : BOOL]]></Declaration>
+      <Get Name="Get" Id="{3f9e73b5-1a0c-4c18-8573-f3f1fb0992f3}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

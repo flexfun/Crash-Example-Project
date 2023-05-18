@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_ProfinetDevice" Id="{2509b0ae-d309-4bd3-86df-07912b9c1dea}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_ProfinetDevice EXTENDS FB_BaseDevice
+VAR_INPUT
+    // This is presented as a linkable input in the main project via a GVL
+    StateInput AT %I* : UINT;
+    // This is presented as a linkable input in the main project via a GVL
+    DiagInput AT %I* : UINT;
+	// This is presented as a linkable output in the main project via a GVL	
+    CtrlOutput AT %Q* : UINT;
+END_VAR
+VAR
+    uCtrlOutput : U_ProfinetDeviceCtrlOutput;
+    uDiagInput  : U_ProfinetDeviceDiagInput;
+    uStateInput : U_ProfinetDeviceStateInput;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ProfinetDevice">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="G_Hybrid" Id="{e721f3c3-1b40-4bab-813a-22b7342730cc}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	HS_N_AS1 : FB_HybridStarter(name := "VF01", location := "Plant", description := "VF02 on Hybrid Starter HS_N_AS1");
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

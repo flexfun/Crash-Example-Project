@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_MonitoredDevice" Id="{947ff624-1146-4b0c-8332-1f12745fd173}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MonitoredDevice
+VAR
+//	Attributes : ARRAY[*] OF ST_MonitoredAttribute;
+//	Attributes : ARRAY[*] OF FB_MonitoredAttribute;
+	attributes : FB_BA_DynamicArray;
+END_VAR
+
+VAR_INPUT
+	// The device that is being monitored, must be a subclass of BaseDevice (i.e. `EXTENDS BaseDevice`)
+//	device : POINTER TO BYTE;
+
+	// This is the ID/index of the device in the Devices array
+	deviceId : DINT;
+	
+	// The human-readable name of the device
+	name : WSTRING(255);
+	
+	// The physical location in the plant
+	location : WSTRING(255);
+	
+	description : WSTRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddMonitoredAttribute" Id="{17fc833c-c3d5-4787-933b-b42cf1aaf1fc}">
+      <Declaration><![CDATA[METHOD AddMonitoredAttribute : FB_MonitoredAttribute
+VAR_INPUT
+	// Human-readable name
+	name : WSTRING(255);
+
+	// A loosely-typed reference to the input attribute value that needs to be monitored
+	inputValue : ANY_NUM; // TODO need to consume all this in the Refresh() method
+
+	// Determines whether or not to monitor a maximum value
+	monitorMaxValue : BOOL;
+
+	// Determines whether or not to monitor a minimum value
+	monitorMinValue : BOOL;	
+END_VAR
+
+VAR
+	uNewMaxIndex: DINT;
+	stMonitoredAttribute : ST_MonitoredAttribute;
+	fbMonitoredAttribute : FB_MonitoredAttribute;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Find the current max index in the existing array
+//uNewMaxIndex := UPPER_BOUND(Attributes,1);
+
+// Create new monitored attributes instance
+// Other variables can be set after the fact by the caller directly, on the returned instance 
+fbMonitoredAttribute.name := name;
+fbMonitoredAttribute.deviceId := deviceId;
+fbMonitoredAttribute.inputValue := inputValue;
+fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
+fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
+
+// Populate the response struct with the instance and it's ID/index location
+//stMonitoredAttribute.attribute := fbMonitoredAttribute;
+//stMonitoredAttribute.attributeId := uNewMaxIndex;
+//stMonitoredAttribute.deviceId := uNewMaxIndex;
+
+// Add the new attributes instance to the array of monitored attributes
+//Attributes[uNewMaxIndex] := stMonitoredAttribute;
+//Attributes[uNewMaxIndex] := fbMonitoredAttribute;
+
+// Return the response struct
+//AddMonitoredDevice := stMonitoredAttribute;
+AddMonitoredAttribute := fbMonitoredAttribute;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_MonitoredDevice">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_MonitoredDevice.AddMonitoredAttribute">
+      <LineId Id="41" Count="3" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="141" Count="1" />
+      <LineId Id="163" Count="4" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="168" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="110" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

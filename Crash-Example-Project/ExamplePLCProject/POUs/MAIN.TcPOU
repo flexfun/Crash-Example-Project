@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{d1283d2e-6cd2-4128-811b-50c1d277a7c1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bSetupDone    : BOOL;
+	DeviceMonitor : FB_DeviceMonitor;
+	monitoredDevice        : FB_MonitoredDevice;
+	attribute     : FB_MonitoredAttribute;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT bSetupDone THEN
+	// Hybrid Starter - G_Hybrid.HS_N_AS1
+	monitoredDevice := G_Hybrid.HS_N_AS1.monitoredDevice;
+	DeviceMonitor.AddMonitoredDevice(device := monitoredDevice);
+	
+//	// Current
+//	attribute := monitoredDevice.AddMonitoredAttribute(
+//		name            := "Max current",
+//		inputValue      := G_Hybrid.HS_N_AS1.CurrentMaxInput,
+//		monitorMaxValue := TRUE, 
+//		monitorMinValue := FALSE
+//	);
+//	attribute.maxWarningValue._UINT := 80; // TODO set a proper value
+//	attribute.maxErrorValue._UINT := 100; // TODO set a proper value
+	
+//	// Thermal load
+//	monitoredDevice.AddMonitoredAttribute(
+//		name            := "Thermal Load",
+//		inputValue      := G_Hybrid.HS_N_AS1.ThermalLoadInput,
+//		monitorMaxValue := TRUE,
+//		monitorMinValue := FALSE
+//	);
+	
+	bSetupDone := TRUE;
+END_IF
+
+// Read the device inputs
+G_Hybrid.HS_N_AS1.ReadControlInputs();
+
+//
+// Normally we would do things to the device here
+//
+
+// Write the control output word
+G_Hybrid.HS_N_AS1.WriteControlOutput();
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="66" Count="2" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="69" Count="30" />
+      <LineId Id="44" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="ITF_InputDevice" Id="{d3365876-3dd2-4e76-8357-5b4cde50ea46}">
+    <Declaration><![CDATA[INTERFACE ITF_InputDevice
+]]></Declaration>
+    <Method Name="ReadControlInputs" Id="{b75848ee-a316-47e6-9b12-5ccd6eb6d4b3}">
+      <Declaration><![CDATA[METHOD ReadControlInputs : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

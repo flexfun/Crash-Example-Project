@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_HybridStarterControlOutputBits" Id="{68cf604f-9712-4f42-b8b9-ae32d058443b}">
+    <Declaration><![CDATA[TYPE
+    ST_HybridStarterControlOutputBits :
+    STRUCT
+        ForwardRunning       : BIT;
+        ReverseRunning       : BIT;
+        ManualReset          : BIT;
+        AutomaticReset       : BIT;
+        Reserved4            : BIT;
+        Reserved5            : BIT;
+        Reserved6            : BIT;
+        Reserved7            : BIT;
+        NominalMotorCurrent0 : BIT;
+        NominalMotorCurrent1 : BIT;
+        NominalMotorCurrent2 : BIT;
+        NominalMotorCurrent3 : BIT;
+        Reserved12           : BIT;
+        Reserved13           : BIT;
+        Reserved14           : BIT;
+        IdentificationValid  : BIT;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_IOLinkDevice" Id="{589e6482-7e3f-45cf-ba29-92bc74f578c6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_IOLinkDevice EXTENDS FB_BaseDevice
+VAR_INPUT
+    // This is presented as a linkable input in the main project via a GVL	
+    PQIStatusInput AT %I* : BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLinkDevice">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
