@@ -5,7 +5,7 @@
 VAR
 //	Attributes : ARRAY[*] OF ST_MonitoredAttribute;
 //	Attributes : ARRAY[*] OF FB_MonitoredAttribute;
-	attributes : FB_BA_DynamicArray;
+//	attributes : FB_BA_DynamicArray;
 END_VAR
 
 VAR_INPUT
@@ -28,7 +28,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="AddMonitoredAttribute" Id="{17fc833c-c3d5-4787-933b-b42cf1aaf1fc}">
-      <Declaration><![CDATA[METHOD AddMonitoredAttribute : FB_MonitoredAttribute
+      <Declaration><![CDATA[METHOD AddMonitoredAttribute : BOOL // FB_MonitoredAttribute
 VAR_INPUT
 	// Human-readable name
 	name : WSTRING(255);
@@ -45,8 +45,8 @@ END_VAR
 
 VAR
 	uNewMaxIndex: DINT;
-	stMonitoredAttribute : ST_MonitoredAttribute;
-	fbMonitoredAttribute : FB_MonitoredAttribute;
+//	stMonitoredAttribute : ST_MonitoredAttribute;
+//	fbMonitoredAttribute : FB_MonitoredAttribute;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Find the current max index in the existing array
@@ -54,11 +54,11 @@ END_VAR]]></Declaration>
 
 // Create new monitored attributes instance
 // Other variables can be set after the fact by the caller directly, on the returned instance 
-fbMonitoredAttribute.name := name;
-fbMonitoredAttribute.deviceId := deviceId;
-fbMonitoredAttribute.inputValue := inputValue;
-fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
-fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
+//fbMonitoredAttribute.name := name;
+//fbMonitoredAttribute.deviceId := deviceId;
+//fbMonitoredAttribute.inputValue := inputValue;
+//fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
+//fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
 
 // Populate the response struct with the instance and it's ID/index location
 //stMonitoredAttribute.attribute := fbMonitoredAttribute;
@@ -71,7 +71,8 @@ fbMonitoredAttribute.monitorMaxValue := monitorMaxValue;
 
 // Return the response struct
 //AddMonitoredDevice := stMonitoredAttribute;
-AddMonitoredAttribute := fbMonitoredAttribute;
+//AddMonitoredAttribute := fbMonitoredAttribute;
+AddMonitoredAttribute := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -91,7 +92,9 @@ AddMonitoredAttribute := fbMonitoredAttribute;
       <LineId Id="40" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="2" Count="0" />
-      <LineId Id="110" Count="1" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="188" Count="0" />
+      <LineId Id="111" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

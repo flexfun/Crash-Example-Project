@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_DeviceMonitor" Id="{bc1bc499-3913-423a-945b-98ef54d797c7}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_DeviceMonitor
 
 VAR_IN_OUT
 //	devices : ARRAY[*] OF FB_MonitoredDevice;
-//	Devices : ARRAY[*] OF MonitoredDeviceStruct;
+//	devices : ARRAY[*] OF MonitoredDeviceStruct;
 END_VAR
 
 VAR
-	devices : FB_BA_DynamicArray;
+//	devices : FB_BA_DynamicArray;
+	devices : ARRAY[0..99] OF FB_MonitoredDevice;
+	currentIndex : DINT := -1;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,34 +30,35 @@ VAR
 //	uNewMaxIndex : DINT;
 //	fbMonitoredDevice : FB_MonitoredDevice;
 //	stMonitoredDevice : ST_MonitoredDevice;
-	resultIndex: DINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Find the current max index in the existing array
 //uNewMaxIndex := UPPER_BOUND(devices,1);
+currentIndex := currentIndex + 1;
 
 // Create a new monitored device instance
 //fbMonitoredDevice.device := device.pValue;
 //fbMonitoredDevice.deviceId := devices.diCount;
 //device.deviceId := uNewMaxIndex;
+device.deviceId := currentIndex;
 //device.deviceId := devices.diCount;
-device.deviceId := devices.LastIndex;
+//device.deviceId := devices.LastIndex;
 
 //fbMonitoredDevice.name := name;
 //fbMonitoredDevice.location := location;
 //fbMonitoredDevice.description := description;
-
-devices.AddEntryPtr(pEntry := ADR(device));
 
 // Populate the response struct with the instance and it's ID/index location
 //stMonitoredDevice.device := fbMonitoredDevice;
 //stMonitoredDevice.deviceId := uNewMaxIndex;
 
 // Add the new device instance to the array of monitored devices
-//Devices[uNewMaxIndex] := stMonitoredDevice;
-//Devices[uNewMaxIndex] := fbMonitoredDevice;
+//devices[uNewMaxIndex] := stMonitoredDevice;
+//devices[uNewMaxIndex] := fbMonitoredDevice;
 //devices[uNewMaxIndex] := device;
+devices[currentIndex] := device;
+//devices.AddEntryPtr(pEntry := ADR(device));
 
 // Return the response struct
 //AddMonitoredDevice := stMonitoredDevice;
@@ -70,11 +73,13 @@ AddMonitoredDevice := TRUE;
     <LineIds Name="FB_DeviceMonitor.AddMonitoredDevice">
       <LineId Id="172" Count="0" />
       <LineId Id="151" Count="0" />
+      <LineId Id="266" Count="0" />
       <LineId Id="171" Count="0" />
       <LineId Id="161" Count="0" />
       <LineId Id="157" Count="0" />
       <LineId Id="189" Count="0" />
       <LineId Id="231" Count="0" />
+      <LineId Id="267" Count="0" />
       <LineId Id="248" Count="0" />
       <LineId Id="250" Count="0" />
       <LineId Id="249" Count="0" />
@@ -82,12 +87,13 @@ AddMonitoredDevice := TRUE;
       <LineId Id="158" Count="0" />
       <LineId Id="195" Count="0" />
       <LineId Id="230" Count="0" />
-      <LineId Id="229" Count="0" />
-      <LineId Id="210" Count="4" />
+      <LineId Id="211" Count="3" />
       <LineId Id="160" Count="0" />
       <LineId Id="153" Count="0" />
       <LineId Id="215" Count="0" />
       <LineId Id="232" Count="0" />
+      <LineId Id="268" Count="0" />
+      <LineId Id="265" Count="0" />
       <LineId Id="169" Count="0" />
       <LineId Id="166" Count="0" />
       <LineId Id="162" Count="0" />

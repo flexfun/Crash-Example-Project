@@ -3,19 +3,22 @@
   <POU Name="MAIN" Id="{d1283d2e-6cd2-4128-811b-50c1d277a7c1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bSetupDone    : BOOL;
-	DeviceMonitor : FB_DeviceMonitor;
-	monitoredDevice        : FB_MonitoredDevice;
-	attribute     : FB_MonitoredAttribute;
+	bSetupDone         : BOOL;
+	DeviceMonitor      : FB_DeviceMonitor;
+	monitoredDevice    : FB_MonitoredDevice;
+	monitoredAttribute : FB_MonitoredAttribute;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT bSetupDone THEN
-	// Hybrid Starter - G_Hybrid.HS_N_AS1
+	(*
+	  Create an instance of the Phoenix Contact Hybrid Starter library - G_Hybrid.HS_N_AS1
+	  This is a library that I have built
+    *)
 	monitoredDevice := G_Hybrid.HS_N_AS1.monitoredDevice;
 	DeviceMonitor.AddMonitoredDevice(device := monitoredDevice);
 	
-//	// Current
+//	// Add Current measurement TODO
 //	attribute := monitoredDevice.AddMonitoredAttribute(
 //		name            := "Max current",
 //		inputValue      := G_Hybrid.HS_N_AS1.CurrentMaxInput,
@@ -25,7 +28,7 @@ END_VAR
 //	attribute.maxWarningValue._UINT := 80; // TODO set a proper value
 //	attribute.maxErrorValue._UINT := 100; // TODO set a proper value
 	
-//	// Thermal load
+//	// Add Thermal load measurement TODO
 //	monitoredDevice.AddMonitoredAttribute(
 //		name            := "Thermal Load",
 //		inputValue      := G_Hybrid.HS_N_AS1.ThermalLoadInput,
@@ -39,16 +42,20 @@ END_IF
 // Read the device inputs
 G_Hybrid.HS_N_AS1.ReadControlInputs();
 
-//
-// Normally we would do things to the device here
-//
+(*
+    Normal PLC code goes here
+*)
 
 // Write the control output word
 G_Hybrid.HS_N_AS1.WriteControlOutput();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="66" Count="2" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="109" Count="1" />
+      <LineId Id="68" Count="0" />
       <LineId Id="100" Count="0" />
       <LineId Id="69" Count="30" />
       <LineId Id="44" Count="0" />
